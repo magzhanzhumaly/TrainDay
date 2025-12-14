@@ -30,8 +30,13 @@ final class CalendarViewModel: ObservableObject {
          initialDate: Date = Date()) {
         self.api = api
         self.calendar = calendar
-        self.displayedMonth = initialDate
-        self.selectedDate = initialDate
+        let monthStart = CalendarViewModel.firstDayOfMonth(for: initialDate, calendar: calendar)
+        let defaultSelected = CalendarViewModel.defaultSelectedDate(for: monthStart, calendar: calendar)
+
+        // displayedMonth всегда держим на первом дне месяца (удобнее для сетки)
+        self.displayedMonth = monthStart
+        // если открыли текущий месяц - дефолтно выбираем сегодня, иначе 1 число
+        self.selectedDate = defaultSelected
     }
 
     // MARK: - Computed
@@ -138,7 +143,29 @@ final class CalendarViewModel: ObservableObject {
         return cells
     }
 
+    private func defaultSelectedDate(for month: Date) -> Date {
+        CalendarViewModel.defaultSelectedDate(for: month, calendar: calendar)
+    }
+
+    private static func defaultSelectedDate(for month: Date, calendar: Calendar) -> Date {
+        let today = Date()
+
+        let isCurrentMonth =
+            calendar.component(.year, from: month) == calendar.component(.year, from: today) &&
+            calendar.component(.month, from: month) == calendar.component(.month, from: today)
+
+        if isCurrentMonth {
+            return today
+        } else {
+            return firstDayOfMonth(for: month, calendar: calendar)
+        }
+    }
+    
     private func firstDayOfMonth(for date: Date) -> Date {
+        CalendarViewModel.firstDayOfMonth(for: date, calendar: calendar)
+    }
+
+    private static func firstDayOfMonth(for date: Date, calendar: Calendar) -> Date {
         let comps = calendar.dateComponents([.year, .month], from: date)
         return calendar.date(from: comps) ?? date
     }
@@ -168,7 +195,8 @@ final class CalendarViewModel: ObservableObject {
         let displayedMonthKey = calendar.dateComponents([.year, .month], from: displayedMonth)
 
         if selectedMonthKey.year != displayedMonthKey.year || selectedMonthKey.month != displayedMonthKey.month {
-            selectedDate = firstDayOfMonth(for: displayedMonth)
+            // если вернулись в текущий месяц - выбрать сегодня, иначе 1 число
+            selectedDate = defaultSelectedDate(for: displayedMonth)
         }
     }
 }

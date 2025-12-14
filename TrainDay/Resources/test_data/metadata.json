@@ -494,5 +494,22 @@
     "heartRateGraph": null,
     "activityGraph": null,
     "map": null
+  },
+  "9000000000000032": {
+    "workoutActivityType": "Water",
+    "workoutStartDate": "2025-12-31 19:40:00",
+    "distance": null,
+    "duration": "900",
+    "maxLayer": 1,
+    "maxSubLayer": 1,
+    "avg_humidity": "74.0",
+    "avg_temp": "5.0",
+    "comment": "Water - short recovery session",
+    "photoBefore": null,
+    "photoAfter": null,
+    "heartRateGraph": null,
+    "activityGraph": null,
+    "map": null
   }
 }
+
