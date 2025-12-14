@@ -43,6 +43,7 @@ TrainDay — iOS-приложение на SwiftUI для отображения
 
 ### Структура проекта
 
+```text
 TrainDay/
 ├── App/                 # Точка входа и root view
 ├── Coordinators/        # Навигация и маршруты
@@ -53,6 +54,7 @@ TrainDay/
 ├── Resources/
 │   └── test_data/       # Моковые JSON-данные
 └── Tests/               # Unit-тесты логики
+```
 
 ### Ключевые решения
 - `CalendarViewModel` изолирован через `@MainActor`
@@ -124,4 +126,3 @@ TrainDayTests/TrainDayTests.swift
 
 Magzhan Zhumaly
 iOS Engineer
-
