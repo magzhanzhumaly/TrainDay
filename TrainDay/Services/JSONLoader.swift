@@ -52,3 +52,14 @@ enum JSONLoader {
         throw ServiceError.fileNotFound(filename)
     }
 }
+
+extension JSONLoader {
+    static func debugURL(_ filename: String, bundle: Bundle = .main) throws -> URL {
+        try findResourceURL(filename, bundle: bundle)
+    }
+
+    static func decode<T: Decodable>(_ data: Data, as type: T.Type) throws -> T {
+        let decoder = JSONDecoder.trainDay()
+        return try decoder.decode(T.self, from: data)
+    }
+}
