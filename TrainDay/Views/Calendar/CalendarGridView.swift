@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct CalendarGridView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    let cells: [CalendarDayCellModel]
+    let onTap: (Date) -> Void
 
-#Preview {
-    CalendarGridView()
+    private let columns: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 8), count: 7)
+
+    var body: some View {
+        LazyVGrid(columns: columns, spacing: 10) {
+            ForEach(cells) { cell in
+                CalendarDayCellView(cell: cell)
+                    .onTapGesture {
+                        if let date = cell.date {
+                            onTap(date)
+                        }
+                    }
+            }
+        }
+    }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct TrainDayApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppRootView()
         }
     }
 }
